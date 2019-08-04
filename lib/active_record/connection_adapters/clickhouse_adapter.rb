@@ -196,7 +196,13 @@ module ActiveRecord
 
       def connect
         # for ssl port need use ssl
-        @connection = Net::HTTP.start(@connection_parameters[0], @connection_parameters[1], use_ssl: @connection_parameters[1] == 443)
+        
+        @connection = Net::HTTP.start(@connection_parameters[0], @connection_parameters[1], use_ssl: true, verify_mode: OpenSSL::SSL::VERIFY_NONE)
+        # @connection = Net::HTTP.start(@connection_parameters[0], @connection_parameters[1], use_ssl: true, ca_file: "/home/vsis/YandexInternalRootCA.crt", verify_mode: OpenSSL::SSL::VERIFY_NONE)
+
+        # @connection.ca_file = "/home/vsis/YandexInternalRootCA.crt"
+        # @connection.use_ssl = true
+        # @connection.start 
       end
     end
   end
